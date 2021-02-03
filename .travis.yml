@@ -17,3 +17,15 @@ script:
 
 after_success:
   - echo "Test success"
+
+deploy:
+  provider: elasticbeanstalk  # 외부 서비스 표시 (s3, elasticbeanstalk, firebase 등)
+  region: "us-east-1"         # AWS region
+  app: "docker-react-app"     # 생성된 어플리케이션의 이름
+  env: "Dockerreactapp-env"   # 환경 이름. elasticbeanstalk에 보인다!
+  bucket_name: "elasticbeanstalk-us-east-1-229001884462"  # S3 버킷 이름(elasticbeanstalk 생성 시, 자동생성)
+  bucket_path: "docker-react-app"     # 어플리케이션 이름과 동일
+  on:
+    branch: main              # 어떤 브랜치에 push할 때 AWS에 배포할 것인지?
+access_key_id: $AWS_ACCESS_KEY
+secret_access_key: $AWS_SECRET_ACCESS_KEY
