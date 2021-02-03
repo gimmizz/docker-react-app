@@ -27,5 +27,5 @@ deploy:
   bucket_path: "docker-react-app"     # 어플리케이션 이름과 동일
   on:
     branch: main              # 어떤 브랜치에 push할 때 AWS에 배포할 것인지?
-access_key_id: $AWS_ACCESS_KEY
-secret_access_key: $AWS_SECRET_ACCESS_KEY
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY

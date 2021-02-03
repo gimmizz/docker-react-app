@@ -8,4 +8,5 @@ CMD ["npm", "run", "build"]
 
 # run stage | nginx 실행하기. /usr/share/nginx/html 폴더로 복사하기
 FROM nginx
+EXPOSE 80
 COPY --from=builder /usr/src/app/build /usr/share/nginx/html
