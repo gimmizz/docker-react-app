@@ -1,0 +1,24 @@
+version: "3"          # 도커 컴포즈의 버전
+services:             # 이 곳에 실행하려는 컨테이너들을 정의
+  react:            # 컨테이너 이름
+    build:            # Dockerfile이 있는 디렉토리 찾아주기
+      context: .       # 도커 이미지를 구성하기 위한 파일과 폴더들이 있는 위치
+      dockerfile: Dockerfile.dev  # -f 옵션 내용
+    ports:             # 포트 매핑
+      - "3000:3000"
+    volumes:           # 로컬 머신에 있는 파일들 매핑, -v 옵션 내용
+      - /usr/src/app/node_modules # 참조하지 않을 디렉토리 명시
+      - ./:/usr/src/app   # 로컬:도커 디렉토리 참조
+    environment:       # 리액트 핫로딩 가능하게 만들기
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true   # 리액트 앱을 끌 때 필요!
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /usr/src/app/node_modules
+      - ./:/usr/src/app
+    command: ["npm", "run", "test"]
+    environment:
+      - CHOKIDAR_USEPOLLING=true

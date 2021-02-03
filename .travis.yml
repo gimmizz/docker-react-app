@@ -1,0 +1,19 @@
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "start creating an image with dockerfile"
+  - docker build -t gimmizz/docker-react-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true gimmizz/docker-react-app npm run test -- --coverage 
+  # -e CI=true : CI에서 실행할 것임을 명시, 없으면 오류가 난다.
+  # npm run test : 우리는 테스트를 수행할 것이니까, 명령어를 써야 한다.
+  # coverage : 더 자세한 출력을 위함
+
+after_success:
+  - echo "Test success"
